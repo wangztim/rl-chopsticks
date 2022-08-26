@@ -137,7 +137,7 @@ if mode == "self-play":
 
 if mode == "minimax":
     dyna_player = players.DynaPlayer(name="dyna_1")
-    mm_player = players.MinimaxPlayer("Minimax", max_depth=8)
+    mm_player = players.MinimaxPlayer("Minimax", max_depth=16)
     game = GameState(dyna_player, mm_player, enable_announce=False)
     total_games = 0
     dyna_player_win_count = 0
@@ -151,8 +151,7 @@ if mode == "minimax":
         total_games += 1
 
 if mode == "human":
-    td_player_1 = players.TDPlayer("TD-1", "./td_1_state", gamma=0.9, lambd=0.25)
+    dyna_player = players.DynaPlayer(name="dyna_1")
     human_player = players.HumanPlayer("Human")
-    game = GameState(td_player_1, human_player, enable_announce=True)
+    game = GameState(dyna_player, human_player, enable_announce=True)
     game.play()
-    td_player_1.store_state()

@@ -228,14 +228,14 @@ class MinimaxPlayer(Player):
         else:
             return False
 
-    def _evaluate_state(self, state: GameState, iters_in_future):
+    def _evaluate_state(self, state: GameState, iters_in_future: int):
         winner = state.decide_winner()
         if winner is None:
             return 0
         elif winner.name == self.name:
-            return self.max_depth - iters_in_future + 10
+            return self.max_depth - iters_in_future + 2
         else:
-            return -1 * (self.max_depth - iters_in_future + 10)
+            return -1 * (self.max_depth - iters_in_future + 2)
 
 
 class TDPlayer(Player):
@@ -431,7 +431,7 @@ class DynaPlayer(Player):
         super().take_action(game_state, action)
 
     def decide_action(self, state: GameState) -> Action:
-        self.short_term_agent.simulate_episodes(state, 28)
+        self.short_term_agent.simulate_episodes(state, 50)
         actions = self.generate_valid_actions(state.inactive_player)
         parsed_state = self.parse_state(state)
         return max(actions, key=lambda a: self.score_action(parsed_state, a))
